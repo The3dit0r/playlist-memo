@@ -1,0 +1,41 @@
+export const AddToQueue = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="41"
+      height="41"
+      viewBox="0 0 41 41"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {" "}
+      <path
+        d="M19.5312 11.9596H14.7604C13.2106 11.9596 11.9541 13.216 11.9541 14.7659V14.7659C11.9541 16.3158 13.2106 17.5722 14.7604 17.5722H19.5312"
+        stroke="#FFFFFF"
+        strokeWidth="2.3573"
+        strokeLinecap="round"
+      />{" "}
+      <path
+        d="M11.9541 23.1847L28.792 23.1847"
+        stroke="#FFFFFF"
+        strokeWidth="2.3573"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+      <path
+        d="M11.9541 28.7973L28.792 28.7973"
+        stroke="#FFFFFF"
+        strokeWidth="2.3573"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+      <path
+        d="M23.7406 14.4853H26.2663M28.7919 14.4853H26.2663M26.2663 14.4853V11.9596M26.2663 14.4853V17.0109"
+        stroke="#FFFFFF"
+        strokeWidth="2.02054"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+    </svg>
+  );
+};

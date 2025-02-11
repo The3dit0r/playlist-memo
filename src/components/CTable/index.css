@@ -1,0 +1,33 @@
+.c-table {
+  outline: none;
+}
+
+.c-table > .c-row {
+  border-radius: 8px;
+  /* margin-bottom: 6px; */
+}
+
+.c-table > .c-row:hover {
+  background-color: #fff1;
+}
+
+.c-table > .c-row.active {
+  background-color: #fff3;
+}
+
+.c-row.active:not(.s) {
+  border-radius: 0px;
+}
+
+.c-row.active.f {
+  border-radius: 8px 8px 0 0;
+}
+
+.c-row.active:last-child,
+.c-row.active.l {
+  border-radius: 0 0 8px 8px;
+}
+
+.c-row.active.f:last-child {
+  border-radius: 8px;
+}

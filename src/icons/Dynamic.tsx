@@ -1,0 +1,25 @@
+export const Dynamic = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="42"
+      height="42"
+      viewBox="0 0 42 42"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {" "}
+      <path
+        d="M20.6379 11H23.5559L20.6379 20.6552H24.5L23.5559 23.3103L20.6379 31.5172L22.79 23.3103H18.4655L20.6379 11Z"
+        fill="#898989"
+      />{" "}
+      <path
+        d="M23.5559 23.3103L24.5 20.6552H20.6379L23.5559 11H20.6379L18.4655 23.3103H22.79M23.5559 23.3103L20.6379 31.5172L22.79 23.3103M23.5559 23.3103H22.79"
+        stroke="#FFFFFF"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+    </svg>
+  );
+};

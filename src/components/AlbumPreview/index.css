@@ -1,0 +1,11 @@
+.album-preview {
+  background-color: #aaa1;
+  border-radius: 8px;
+  overflow: hidden;
+
+  font-size: 0.95em;
+
+  > .info {
+    background-color: #0066aa;
+  }
+}

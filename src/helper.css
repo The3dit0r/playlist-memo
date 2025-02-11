@@ -1,0 +1,129 @@
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1 200px;
+}
+
+.coll {
+  flex-direction: column;
+}
+
+.aictr {
+  align-items: center;
+}
+
+.aiart {
+  align-items: flex-start;
+}
+
+.aiend {
+  align-items: flex-end;
+}
+
+.jcctr {
+  justify-content: center;
+}
+
+.jcart {
+  justify-content: flex-start;
+}
+
+.jcend {
+  justify-content: flex-end;
+}
+
+.spard {
+  justify-content: space-around;
+}
+
+.spevl {
+  justify-content: space-evenly;
+}
+
+.spbtw {
+  justify-content: space-between;
+}
+
+.full-bdrd {
+  border-radius: var(--full-bdrd);
+}
+
+.half-bdrd {
+  border-radius: var(--half-bdrd);
+}
+
+.g-full {
+  gap: 24px;
+}
+
+.g-half {
+  gap: 16px;
+}
+
+.tactr {
+  text-align: center;
+}
+
+.usn {
+  user-select: none;
+}
+
+.clickables > *,
+.clickable {
+  --s: 0.97;
+  cursor: pointer;
+  transform-origin: center;
+}
+
+.clickables > *:active,
+.clickable:active {
+  transform: scale(var(--s));
+  filter: brightness(0.8);
+}
+
+.title {
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 0.9em;
+}
+
+.line-ellip,
+.two-line-ellip {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.two-line-ellip {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.list > span:not(:last-child)::after {
+  content: ", ";
+}
+
+.box-wrapper {
+  border-radius: 8px;
+}
+
+.box-wrapper:hover {
+  background-color: #fff1;
+  cursor: pointer;
+}
+
+.box-wrapper.active,
+.box-wrapper:active {
+  background-color: #fff3;
+}

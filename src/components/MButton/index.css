@@ -1,0 +1,54 @@
+.main-button {
+  border: 2px solid var(--c);
+  font-size: 1em;
+  color: var(--c);
+
+  font-weight: 600;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+
+  background-color: var(--cprim);
+
+  user-select: none;
+
+  transition: background-color 0.1s, color 0.1s, transform 50ms;
+}
+
+.main-button.active,
+.main-button:hover {
+  background-color: var(--hbgc);
+  color: var(--hc);
+}
+
+.main-button:active {
+  transform: scale(0.98);
+}
+
+.main-button.nbb {
+  border-bottom: 0px;
+}
+
+.main-button.disabled {
+  pointer-events: none;
+  filter: grayscale(1);
+  background-color: var(--hbgc);
+  color: var(--hc);
+}
+
+.main-button.bead {
+  min-width: none;
+  padding: 7px 20px;
+  flex: 1;
+
+  margin: 0px 5px;
+  border-radius: 20px;
+}
+
+.main-button.flexing {
+  width: auto;
+  min-width: none;
+
+  padding: 8px 5px;
+}

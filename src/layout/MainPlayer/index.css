@@ -1,0 +1,88 @@
+.main-player {
+  height: 100%;
+  /* width: calc(100% - var(--sidebar-width)); */
+
+  flex: 1 100px;
+  min-width: 0px;
+
+  background-color: var(--cprim);
+  border-radius: var(--full-bdrd);
+
+  overflow: hidden;
+}
+
+.main-player .metadata {
+  user-select: none;
+
+  height: 104px;
+  padding: 16px;
+
+  .cover-art {
+    height: 100%;
+    aspect-ratio: 1;
+
+    background-image: url("https://i.ibb.co/MkB7y10/nocover.png");
+    background-size: cover;
+    background-position: center;
+  }
+
+  .subtitle {
+    font-size: 0.7em;
+    height: 1.6em;
+  }
+
+  .title {
+    font-size: 1.3em;
+    min-height: 1.5em;
+  }
+
+  .controls > svg {
+    --s: 0.93;
+    font-size: 1.7em;
+  }
+}
+
+.main-player .progress {
+  height: 20px;
+  border-radius: 4px;
+
+  margin: 0px 16px;
+
+  background-image: linear-gradient(
+    90deg,
+    #fff,
+    #fff 100px,
+    #0000 100px,
+    #0000
+  );
+
+  background-color: #fff2;
+  margin-top: 20px;
+
+  > .stamp {
+    color: #fff;
+    transform: translateY(-20px);
+    font-size: 0.75em;
+    font-weight: 700;
+  }
+}
+
+.main-player .queuelist {
+  height: calc(100% - 135px - 32px - 40px);
+  overflow-y: auto;
+}
+
+.scroller {
+  --w: 4px;
+  overflow-y: scroll;
+}
+
+.scroller::-webkit-scrollbar {
+  width: var(--w);
+  background-color: #fff1;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: var(--w);
+}

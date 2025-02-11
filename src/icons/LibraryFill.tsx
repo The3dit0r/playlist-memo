@@ -1,0 +1,36 @@
+export const LibraryFill = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="42"
+      height="42"
+      viewBox="0 0 42 42"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {" "}
+      <path
+        d="M12.2322 12.2324V29.5193"
+        stroke="#FFFFFF"
+        strokeWidth="2.02054"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+      <path
+        d="M17.9946 12.2324V29.5193"
+        stroke="#FFFFFF"
+        strokeWidth="2.02054"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+      <path
+        d="M23.7568 29.5193V12.2324L29.5191 16.2217V29.5193H23.7568Z"
+        fill="#898989"
+        stroke="#FFFFFF"
+        strokeWidth="2.02054"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+    </svg>
+  );
+};

@@ -1,0 +1,21 @@
+export const ArrowDown = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="41"
+      height="41"
+      viewBox="0 0 41 41"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {" "}
+      <path
+        d="M20.7993 13.4711V27.7833M20.7993 27.7833L26.6925 21.89M20.7993 27.7833L14.906 21.89"
+        stroke="#FFFFFF"
+        strokeWidth="2.02054"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+    </svg>
+  );
+};

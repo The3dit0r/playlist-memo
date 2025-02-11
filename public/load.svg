@@ -1,0 +1,102 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 124 100"
+  preserveAspectRatio="xMidYMid"
+  width="200"
+  height="200"
+  style="shape-rendering: auto; display: block; background: transparent"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <g>
+    <rect fill="#ffffff" height="40" width="16" y="30" x="92">
+      <animate
+        begin="0.05s"
+
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="20;30;30"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="y"
+      ></animate>
+      <animate
+        begin="0.05s"
+
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="60;40;40"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="height"
+      ></animate>
+    </rect>
+    <rect fill="#ffffff" height="40" width="16" y="30" x="67">
+      <animate
+        begin="0s"
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="16;30;30"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="y"
+      ></animate>
+      <animate
+        begin="0s"
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="68;40;40"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="height"
+      ></animate>
+    </rect>
+    <rect fill="#ffffff" height="40" width="16" y="30" x="42">
+      <animate
+        begin="-0.05s"
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="20;30;30"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="y"
+      ></animate>
+      <animate
+        begin="-0.05s"
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="60;40;40"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="height"
+      ></animate>
+    </rect>
+    <rect fill="#ffffff" height="40" width="16" y="30" x="17">
+      <animate
+        begin="-0.1s"
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="20;30;30"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="y"
+      ></animate>
+      <animate
+        begin="-0.1s"
+        keySplines="0 0.5 0.5 1;0 0.5 0.5 1"
+        values="60;40;40"
+        keyTimes="0;0.5;1"
+        calcMode="spline"
+        dur="0.5s"
+        repeatCount="indefinite"
+        attributeName="height"
+      ></animate>
+    </rect>
+  </g>
+</svg>

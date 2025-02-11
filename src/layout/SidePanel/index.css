@@ -1,0 +1,60 @@
+.side-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  > .content-wrapper {
+    background-color: var(--cprim);
+    border-radius: var(--full-bdrd);
+    flex: 1;
+
+    padding: 16px;
+
+    > .header {
+      padding: 8px;
+    }
+  }
+
+  > .nav-bar {
+    gap: 12px;
+    height: 60px;
+  }
+
+  h1 {
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+
+    border-left: 6px solid #aaa;
+    padding-left: 12px;
+  }
+}
+
+.search-bar {
+  height: 60px;
+  padding: 0 6px;
+  margin-bottom: 12px;
+
+  background-color: var(--clight);
+  border-radius: var(--half-bdrd);
+
+  position: sticky;
+  top: 6px;
+  z-index: 2;
+
+  gap: 4px;
+
+  > input {
+    background: none;
+    border: none;
+    outline: none;
+
+    font-size: 1em;
+    font-family: inherit;
+    color: inherit;
+
+    flex: 1;
+  }
+}

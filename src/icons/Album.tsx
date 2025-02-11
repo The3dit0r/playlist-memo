@@ -1,0 +1,34 @@
+export const Album = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="42"
+      height="42"
+      viewBox="0 0 42 42"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {" "}
+      <circle
+        cx="20.881"
+        cy="21.1244"
+        r="2.75528"
+        stroke="#FFFFFF"
+        strokeWidth="2.02054"
+      />{" "}
+      <path
+        d="M20.881 31.227C15.3014 31.227 10.7783 26.7039 10.7783 21.1243C10.7783 15.5447 15.3014 11.0216 20.881 11.0216C23.7936 11.0216 26.4184 12.2542 28.2621 14.2262"
+        stroke="#FFFFFF"
+        strokeWidth="2.02054"
+        strokeLinecap="round"
+      />{" "}
+      <path
+        d="M29.9715 18.4973V26.0743M29.9715 26.0743V29.8373C29.9715 30.5865 29.438 31.2398 28.6893 31.2163C27.451 31.1773 25.7621 30.7331 25.7621 28.6C25.7621 25.2324 29.9715 26.0743 29.9715 26.0743Z"
+        stroke="#FFFFFF"
+        strokeWidth="1.68378"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+    </svg>
+  );
+};

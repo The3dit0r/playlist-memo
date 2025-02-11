@@ -1,0 +1,27 @@
+export const Off = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="42"
+      height="42"
+      viewBox="0 0 42 42"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {" "}
+      <path
+        d="M26.0684 13.5926C28.8811 15.3906 30.746 18.541 30.746 22.1269C30.746 27.717 26.2144 32.2486 20.6243 32.2486C15.0343 32.2486 10.5027 27.717 10.5027 22.1269C10.5027 18.541 12.3675 15.3906 15.1803 13.5926"
+        stroke="#FFFFFF"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />{" "}
+      <path
+        d="M20.8482 19.369V10.6276"
+        stroke="#FFFFFF"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />{" "}
+    </svg>
+  );
+};
