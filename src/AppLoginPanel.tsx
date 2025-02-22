@@ -59,7 +59,7 @@ export default function AppLoginPanel({}: Props) {
     login();
   }, []);
 
-  if (!loading) {
+  if (loading) {
     return <div className="app-wrapper flex aictr jcctr">Loading . . .</div>;
   }
 
