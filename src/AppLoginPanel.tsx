@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { useUserData } from "./context/UserContext";
+import { useUserData } from "@hooks/internal";
 
-import { parseParameter } from "./utils/parser";
-import { getLocalAccessToken } from "./utils/internal";
+import { getLocalAccessToken } from "@utils/internal";
+import { parseParameter } from "@utils/parser";
 
 type Props = {};
 

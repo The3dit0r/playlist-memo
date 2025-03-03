@@ -69,3 +69,13 @@ body,
     background-color: #cd0;
   }
 }
+
+a {
+  text-decoration: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}

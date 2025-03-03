@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 type ThemeType = {
   sbWidth: number;
@@ -9,7 +9,7 @@ const def = {
   sbWidth: 450,
 };
 
-const ThemeContext = createContext<ThemeType | null>(null);
+export const ThemeContext = createContext<ThemeType | null>(null);
 
 export function ThemeProvider(props: { children: React.ReactNode }) {
   const [sbWidth, setSbWidth] = useState(def.sbWidth);
@@ -33,14 +33,4 @@ export function ThemeProvider(props: { children: React.ReactNode }) {
       {props.children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  const theme = useContext(ThemeContext);
-
-  if (!theme) {
-    throw new Error("useTheme must be used within it's provided context");
-  }
-
-  return theme;
 }

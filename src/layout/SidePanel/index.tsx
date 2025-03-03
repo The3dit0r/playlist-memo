@@ -6,15 +6,18 @@ import { Home } from "../../icons/Home";
 import { Settings } from "../../icons/Settings";
 import { Search } from "../../icons/Search";
 
+import MButton from "../../components/MButton";
+
 import SearchPanel from "./panels/SearchPanel";
 import PostLoginPanel from "./panels/PostLoginPanel";
 import LibraryPanel from "./panels/LibraryPanel";
 import SettingsPanel from "./panels/SettingsPanel";
-
-import { useTheme } from "../../context/ThemeContext";
-import MButton from "../../components/MButton";
 import HomePanel from "./panels/HomePanel";
 import TrackPanel from "./panels/TrackPanel";
+import ArtistPanel from "./panels/ArtistPanel";
+import AlbumPanel from "./panels/AlbumPanel";
+
+import { useTheme } from "../../hooks/internal";
 
 export default function SidePanel() {
   const theme = useTheme();
@@ -26,8 +29,11 @@ export default function SidePanel() {
         <Route path="/login" element={<PostLoginPanel />} />
         <Route path="/library" element={<LibraryPanel />} />
         <Route path="/settings" element={<SettingsPanel />} />
-        <Route path="/track/:id" element={<TrackPanel />} />
         <Route path="/" element={<HomePanel />} />
+
+        <Route path="/track/:id" element={<TrackPanel />} />
+        <Route path="/artist/:id" element={<ArtistPanel />} />
+        <Route path="/album/:id" element={<AlbumPanel />} />
       </Routes>
 
       <div className="nav-bar flex aictr spbtw">

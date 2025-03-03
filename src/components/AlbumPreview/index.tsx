@@ -6,7 +6,9 @@ import { CTable } from "../CTable";
 
 import { SpotifyAPI } from "../../utils/request";
 import { durationFormat, getImageURL } from "../../utils/parser";
+
 import PlayButton from "../others/PlayButton";
+import { ItemLink } from "../others/Link";
 
 interface DataType {
   album: SpotifyApi.SingleAlbumResponse | null;
@@ -63,7 +65,7 @@ export default function AlbumPreview({ id }: { id: string }) {
     );
   }
 
-  const { name, images, artists } = data;
+  const { images, artists } = data;
 
   const cover = getImageURL(images);
 
@@ -78,10 +80,10 @@ export default function AlbumPreview({ id }: { id: string }) {
       >
         <img src={cover} width={80} />
         <div className="metadata flex-1">
-          <div className="bold">{name}</div>
+          <ItemLink {...data} className="bold two-line-ellip" />
           <div className="subtext list">
             {artists.map((a) => (
-              <span>{a.name}</span>
+              <ItemLink {...a} />
             ))}
           </div>
         </div>
@@ -96,10 +98,10 @@ export default function AlbumPreview({ id }: { id: string }) {
                 style={{ height: 60, padding: "0 16px" }}
               >
                 <div className="flex-1">
-                  <div className="bold">
+                  <div className="bold line-ellip">
                     {item.track_number}. {item.name}
                   </div>
-                  <div className="subtext list">
+                  <div className="subtext list line-ellip">
                     {artists.map((a) => (
                       <span>{a.name}</span>
                     ))}

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Search } from "../../../icons/Search";
-import { Close } from "../../../icons/Close";
 import { RiInputField } from "react-icons/ri";
 import { GiSadCrab } from "react-icons/gi";
+import { Search } from "@icons/Search";
+import { Close } from "@icons/Close";
 
-import { LoadingAnimation } from "../../../components/Loading";
-import MButton from "../../../components/MButton";
-import { CTable } from "../../../components/CTable";
+import MButton from "@components/MButton";
+import RowItem from "@components/ItemDisplay/row";
+import { LoadingAnimation } from "@components/Loading";
+import { CTable } from "@components/CTable";
 
-import { SpotifyAPI } from "../../../utils/request";
-import { wait } from "../../../utils/internal";
-import RowItem from "../../../components/ItemDisplay/row";
-import { useNavigate } from "react-router-dom";
+import { SpotifyAPI } from "@utils/request";
+import { wait } from "@utils/internal";
 
 function RLoadingPanel() {
   return (
@@ -173,11 +173,17 @@ function ResultsPanel({ results }: { results: ResType }) {
         <Button n="Playlist" i={3} />
       </div>
       <br />
-      <CTable renderArr={top} key={curPanel}>
+      <CTable
+        renderArr={top}
+        key={curPanel}
+        onContextMenu={() => {
+          console.log("Nice");
+        }}
+      >
         {(item, index) => {
           let image,
             subtext = "",
-            br = 8;
+            br = false;
 
           if (item.type === "track") {
             image = item.album.images.slice(-1)[0]?.url;
@@ -198,7 +204,7 @@ function ResultsPanel({ results }: { results: ResType }) {
 
               case "artist": {
                 subtext = item.followers.total.toLocaleString() + " followers";
-                br = 120;
+                br = true;
                 break;
               }
             }
@@ -216,6 +222,8 @@ function ResultsPanel({ results }: { results: ResType }) {
               image={image}
               name={item.name}
               onDoubleClick={() => nav(url)}
+              roundCover={br}
+              height={64}
             />
           );
         }}

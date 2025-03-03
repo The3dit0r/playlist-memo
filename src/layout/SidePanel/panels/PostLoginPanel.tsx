@@ -1,5 +1,5 @@
-import MButton from "../../../components/MButton";
-import { useUserData } from "../../../context/UserContext";
+import MButton from "@components/MButton";
+import { useUserData } from "@hooks/internal";
 
 export default function PostLoginPanel() {
   const { profile } = useUserData();

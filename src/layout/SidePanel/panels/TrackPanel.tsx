@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { LoadingAnimation } from "../../../components/Loading";
+import { AddToPlaylist } from "@icons/AddToPlaylist";
+import { AddToQueue } from "@icons/AddToQueue";
+import { Like } from "@icons/Like";
+import { More } from "@icons/More";
 
-import { useTheme } from "../../../context/ThemeContext";
-import RowItem from "../../../components/ItemDisplay/row";
+import PlayButton from "@components/others/PlayButton";
+import AlbumPreview from "@components/AlbumPreview";
+import { LoadingAnimation } from "@components/Loading";
+import { ItemLinkList } from "@components/others/Link";
 
-import { capitalize, getImageURL } from "../../../utils/parser";
-import { SpotifyAPI } from "../../../utils/request";
-import AlbumPreview from "../../../components/AlbumPreview";
-import PlayButton from "../../../components/others/PlayButton";
-import { AddToPlaylist } from "../../../icons/AddToPlaylist";
-import { AddToQueue } from "../../../icons/AddToQueue";
-import { Like } from "../../../icons/Like";
-import { More } from "../../../icons/More";
+import { useTheme } from "@hooks/internal";
+
+import { getImageURL } from "@utils/parser";
+import { SpotifyAPI } from "@utils/request";
 
 type DataType = SpotifyApi.SingleTrackResponse;
 
 export default function TrackPanel() {
-  const nav = useNavigate();
-
   const { id = "" } = useParams();
   const theme = useTheme();
 
@@ -74,49 +73,73 @@ export default function TrackPanel() {
   const cover = getImageURL(images, 0);
 
   return (
-    <div className="content-wrapper scroller">
-      <div className="header tactr">
-        <div style={{ fontWeight: "bold" }}>Track</div>
-      </div>
-      <div style={{ padding: "16px 0" }}>
+    <div
+      className="content-wrapper scroller"
+      style={{ backgroundImage: `url('${cover}')`, backgroundSize: "contain" }}
+    >
+      <div className="gradient-wrapper">
+        <div className="m-header tactr">
+          <div style={{ fontWeight: "bold" }}>Track</div>
+        </div>
+        <div style={{ padding: "16px 0" }}>
+          <div
+            className="cover full-bdrd"
+            style={{
+              backgroundImage: `url('${cover}')`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+
+              outline: "2px solid #fffa",
+
+              width: Math.min(296, theme.sbWidth - 60),
+              margin: "auto",
+              aspectRatio: 1,
+            }}
+          ></div>
+        </div>
+
+        <div className="metadata tactr">
+          <div className="title" style={{ margin: "0.5em" }}>
+            {name}
+          </div>
+          <ItemLinkList items={artists} />
+        </div>
+
         <div
-          className="cover full-bdrd"
-          style={{
-            backgroundImage: `url('${cover}')`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-
-            outline: "2px solid #fffa",
-
-            width: Math.min(296, theme.sbWidth - 60),
-            margin: "auto",
-            aspectRatio: 1,
-          }}
-        ></div>
-      </div>
-
-      <div className="metadata tactr">
-        <div className="title" style={{ margin: "0.5em" }}>
-          {name}
+          className="flex jcctr aictr g-half clickables"
+          style={{ padding: "32px 16px" }}
+        >
+          <More />
+          <Like />
+          <PlayButton />
+          <AddToQueue />
+          <AddToPlaylist />
         </div>
-        <div className="list">
-          {artists.map((a) => [<span>{a.name}</span>])}
+
+        <div style={{ padding: 8 }}>
+          <LyricsDisplay />
+
+          <h4 className="tactr frame">This track is a part of</h4>
+          <AlbumPreview id={album.id} />
         </div>
       </div>
+    </div>
+  );
+}
 
+function LyricsDisplay() {
+  return (
+    <div className="lyrics-display">
       <div
-        className="flex jcctr aictr g-half clickables"
-        style={{ padding: "32px 16px" }}
+        style={{
+          textAlign: "center",
+          background: "#fff1",
+          borderRadius: 8,
+          padding: "32px 16px",
+        }}
       >
-        <More />
-        <Like />
-        <PlayButton />
-        <AddToQueue />
-        <AddToPlaylist />
+        Sorry, but lyrics is not currently available
       </div>
-
-      <h4 className="tactr">This track is a part of</h4>
-      <AlbumPreview id={album.id} />
     </div>
   );
 }

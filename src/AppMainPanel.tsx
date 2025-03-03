@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
-import MainPlayer from "./layout/MainPlayer";
-import SidePanel from "./layout/SidePanel";
+import MainPlayer from "@layout/MainPlayer";
+import SidePanel from "@layout/SidePanel";
 
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "@hooks/internal";
 
 export default function AppMainPanel() {
   return (

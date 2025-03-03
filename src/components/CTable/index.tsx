@@ -6,6 +6,17 @@ type DivProps = JSX.IntrinsicElements["div"];
 type CtxType = {
   handleRowClick(index: number): void;
   indexIsActive(index: number): boolean;
+
+  activateIndex(...index: number[]): void;
+  deactivateIndex(...index: number[]): void;
+  reactivateIndex(index: number): void;
+
+  activateRange(a: number, b: number): void;
+
+  deactivateAll(): void;
+  activateAll(): void;
+
+  activeLength: number;
 };
 
 const TableContext = createContext<CtxType | null>(null);
@@ -22,16 +33,29 @@ function useTable() {
 
 type Modify<T, R> = Omit<T, keyof R> & R;
 
+type RowEVItem<T> = {
+  item: T;
+  index: number;
+};
+
 type TProps<T> = Modify<
   JSX.IntrinsicElements["div"],
   {
     renderArr: T[];
     children(t: T, index: number): React.ReactNode;
+
+    onContextMenu?: (e: { rows: RowEVItem<T>[]; e: React.MouseEvent }) => void;
   }
 >;
 
 export function CTable<T>(props: TProps<T>) {
-  const { className, renderArr, children: renderFunction, ...divProps } = props;
+  const {
+    className,
+    renderArr,
+    children: renderFunction,
+    onContextMenu,
+    ...divProps
+  } = props;
 
   const [activeIndexes, setActiveIndexes] = useState<number[]>([]);
   const [keyIndex, setKeyIndex] = useState<0 | 1 | 2>(0);
@@ -40,8 +64,10 @@ export function CTable<T>(props: TProps<T>) {
   function activateIndex(...index: number[]) {
     const pre: Record<number, any> = {};
     [...activeIndexes, ...index].forEach((a) => (pre[a] = 1));
+
     const strs = Object.keys(pre);
     const ints = strs.map((a) => parseInt(a));
+
     setActiveIndexes(ints);
   }
 
@@ -151,6 +177,16 @@ export function CTable<T>(props: TProps<T>) {
   const data = {
     handleRowClick,
     indexIsActive,
+
+    activateIndex,
+    deactivateIndex,
+    reactivateIndex,
+
+    deactivateAll,
+    activateAll,
+
+    activateRange,
+    activeLength: activeIndexes.length,
   };
 
   const rowsInternalClass = getClassesArray(activeIndexes, renderArr.length);
@@ -160,6 +196,19 @@ export function CTable<T>(props: TProps<T>) {
       <div
         className={clssArr.join(" ")}
         {...divProps}
+        onContextMenu={(e) => {
+          e.preventDefault();
+
+          if (!onContextMenu) return;
+
+          onContextMenu({
+            rows: activeIndexes.map((index) => {
+              return { index, item: renderArr[index] };
+            }),
+
+            e,
+          });
+        }}
         tabIndex={0}
         onKeyDown={(e) => {
           const key = e.key;
@@ -211,13 +260,24 @@ export function CRow(props: RProps) {
   const clssArr = ["c-row"];
   if (className) clssArr.push(className);
 
-  function handleClick(e: any) {
+  function handleMouseDown(e: any) {
     table.handleRowClick(index);
     if (onClick) onClick(e);
   }
 
+  function handleContextMenu() {
+    if (!table.indexIsActive(index)) {
+      table.reactivateIndex(index);
+    }
+  }
+
   return (
-    <div className={clssArr.join(" ")} onClick={handleClick} {...divProps}>
+    <div
+      className={clssArr.join(" ")}
+      onContextMenu={handleContextMenu}
+      onClick={handleMouseDown}
+      {...divProps}
+    >
       {props.children}
     </div>
   );

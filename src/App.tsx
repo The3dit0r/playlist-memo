@@ -1,4 +1,4 @@
-import { useUserData } from "./context/UserContext";
+import { useUserData } from "@hooks/internal";
 
 import AppMainPanel from "./AppMainPanel";
 import AppLoginPanel from "./AppLoginPanel";

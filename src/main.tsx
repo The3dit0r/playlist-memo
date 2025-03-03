@@ -10,14 +10,17 @@ import App from "./App";
 
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import { UserDataProvider } from "./context/UserContext.tsx";
+import { ContextMenuProvider } from "./context/ContextMenuContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <UserDataProvider>
-          <App />
-        </UserDataProvider>
+        <ContextMenuProvider>
+          <UserDataProvider>
+            <App />
+          </UserDataProvider>
+        </ContextMenuProvider>
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode>

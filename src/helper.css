@@ -127,3 +127,46 @@
 .box-wrapper:active {
   background-color: #fff3;
 }
+
+.context-menu {
+  position: fixed;
+  background: #242424;
+  padding: 6px;
+  border-radius: 8px;
+  z-index: 5px;
+
+  margin: 8px;
+
+  min-width: 260px;
+  user-select: none;
+
+  box-shadow: #00000059 0px 5px 15px;
+  font-size: 0.95em;
+
+  hr {
+    border-color: #fff2;
+    border-style: solid;
+    margin: 4px;
+  }
+
+  > .option {
+    height: 42px;
+    padding-right: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+
+    .icon {
+      width: 42px;
+      transform: scale(0.8);
+    }
+  }
+
+  > .option:hover {
+    background-color: #fff1;
+  }
+
+  > .option:active {
+    background-color: #fff3;
+    border-radius: 8px;
+  }
+}

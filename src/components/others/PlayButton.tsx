@@ -35,7 +35,11 @@ export default function PlayButton(props: Props) {
       }}
       className={clssArr.join(" ")}
     >
-      {paused ? <FaPlay size={iconSize} /> : <FaPause size={iconSize} />}
+      {paused ? (
+        <FaPlay size={iconSize} style={{ marginLeft: 4 }} />
+      ) : (
+        <FaPause size={iconSize} />
+      )}
     </div>
   );
 }

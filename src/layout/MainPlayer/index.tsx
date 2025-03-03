@@ -6,9 +6,16 @@ import {
   MdSkipNext,
   MdSkipPrevious,
 } from "react-icons/md";
+import { AddToPlaylist } from "@icons/AddToPlaylist";
+import { AddToQueue } from "@icons/AddToQueue";
+import { PlaySimple } from "@icons/PlaySimple";
+import { Artist } from "@icons/Artist";
+import { Album } from "@icons/Album";
 
 import PlayButton from "../../components/others/PlayButton";
 import { CTable } from "../../components/CTable";
+
+import { useContextMenu } from "@hooks/internal";
 
 export default function MainPlayer() {
   return (
@@ -51,10 +58,29 @@ function Metadata() {
 }
 
 function Queuelist() {
+  const contextMenu = useContextMenu();
+
   return (
     <div className="queuelist scroller" style={{ padding: 16 }}>
-      <CTable renderArr={[1, 2, 3, 4, 5, 1, 2, 3, 4, 5]}>
-        {(item, index) => (
+      <CTable
+        renderArr={[1, 2, 3, 4, 5, 6, 7, 8]}
+        onContextMenu={({ e }) => {
+          e.preventDefault();
+
+          contextMenu.show(
+            [
+              { text: "Add to queue", icon: <AddToQueue /> },
+              { text: "Play track", icon: <PlaySimple /> },
+              { text: "Add to playlist", icon: <AddToPlaylist /> },
+              null,
+              { text: "Visit album page", icon: <Album /> },
+              { text: "Visit artist page", icon: <Artist /> },
+            ],
+            { top: e.clientY, left: e.clientX }
+          );
+        }}
+      >
+        {(_, index) => (
           <div className="flex aictr" style={{ height: 60 }}>
             <div style={{ width: 60, textAlign: "center" }}>{index + 1}</div>
             <div className="flex-1">

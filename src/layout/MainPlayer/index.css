@@ -80,6 +80,7 @@
 .scroller::-webkit-scrollbar {
   width: var(--w);
   background-color: #fff1;
+  background-color: #000;
 }
 
 .scroller::-webkit-scrollbar-thumb {
