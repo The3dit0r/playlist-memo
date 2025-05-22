@@ -1,63 +1,24 @@
-import { useState, useEffect } from "react";
 import "./index.css";
 
-import { LoadingAnimation } from "../Loading";
-import { CTable } from "../CTable";
+import { LoadingAnimation } from "@components/Loading";
+import { CTable } from "@components/CTable";
 
-import { SpotifyAPI } from "../../utils/request";
-import { durationFormat, getImageURL } from "../../utils/parser";
+import PlayButton from "@components/others/PlayButton";
+import { ItemLink } from "@components/others/Link";
 
-import PlayButton from "../others/PlayButton";
-import { ItemLink } from "../others/Link";
+import { useAlbum, useAlbumTracks } from "@hooks/external/album";
 
-interface DataType {
-  album: SpotifyApi.SingleAlbumResponse | null;
-  tracks: SpotifyApi.TrackObjectSimplified[];
-}
+import { durationFormat, getImageURL } from "@utils/parser";
 
 export default function AlbumPreview({ id }: { id: string }) {
-  const [data, setData] = useState<DataType["album"]>(null);
-  const [tracks, setTracks] = useState<DataType["tracks"]>([]);
-  const [loading, setLoading] = useState(false);
+  const data = useAlbum(id);
+  const tracks = useAlbumTracks(id);
 
-  useEffect(() => {
-    if (id.length !== 22) return;
-
-    const request = { valid: true };
-
-    async function loadData() {
-      setLoading(true);
-      const data = await SpotifyAPI.getAlbum(id);
-      if (request.valid) {
-        setData(data.body);
-        setLoading(false);
-      }
-    }
-
-    async function loadTracks() {
-      const data = await SpotifyAPI.getAlbumTracks(id, {
-        offset: 0,
-        limit: 50,
-      });
-
-      if (request.valid) {
-        setTracks(data.body.items);
-      }
-    }
-
-    loadData();
-    loadTracks();
-
-    return () => {
-      request.valid = false;
-    };
-  }, [id]);
-
-  if (loading) {
+  if (data.status === "pending" || data.status === "standby") {
     return <LoadingAnimation text="" />;
   }
 
-  if (!data) {
+  if (data.status === "rejected") {
     return (
       <div className="album-preview">
         A problem occured while fetching album data
@@ -65,7 +26,7 @@ export default function AlbumPreview({ id }: { id: string }) {
     );
   }
 
-  const { images, artists } = data;
+  const { images, artists, name } = data.response.data;
 
   const cover = getImageURL(images);
 
@@ -80,7 +41,12 @@ export default function AlbumPreview({ id }: { id: string }) {
       >
         <img src={cover} width={80} />
         <div className="metadata flex-1">
-          <ItemLink {...data} className="bold two-line-ellip" />
+          <ItemLink
+            name={name}
+            id={id}
+            type="album"
+            className="bold two-line-ellip"
+          />
           <div className="subtext list">
             {artists.map((a) => (
               <ItemLink {...a} />
@@ -90,8 +56,12 @@ export default function AlbumPreview({ id }: { id: string }) {
         <PlayButton style={{ margin: 8 }} size={50} />
       </div>
       <div className="tracks">
-        <CTable renderArr={tracks}>
-          {(item) => {
+        <CTable renderArr={tracks?.response?.data?.items || []}>
+          {/* // TODO: Temporary fix for useAPIGet hooks
+          //  # brief: multiple checks needed to verify
+          //  # existance of the data, should be made into a hook
+          //  */}
+          {(item: any) => {
             return (
               <div
                 className="flex aictr"

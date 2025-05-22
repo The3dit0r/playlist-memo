@@ -118,7 +118,7 @@ export default function TrackPanel() {
 
         <div style={{ padding: 8 }}>
           <LyricsDisplay />
-
+          <br />
           <h4 className="tactr frame">This track is a part of</h4>
           <AlbumPreview id={album.id} />
         </div>

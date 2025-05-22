@@ -2,7 +2,7 @@ import { FaPause, FaPlay } from "react-icons/fa";
 
 type Props = {
   size?: number;
-  paused?: boolean;
+  playing?: boolean;
   bgcolor?: string;
   color?: string;
 } & JSX.IntrinsicElements["div"];
@@ -10,11 +10,13 @@ type Props = {
 export default function PlayButton(props: Props) {
   const {
     size = 60,
-    paused = false,
+    playing = false,
     bgcolor = "var(--caccent)",
     color = "#fff",
     className,
     style,
+
+    ...rest
   } = props;
 
   const clssArr = ["flex aictr jcctr clickable"];
@@ -34,8 +36,9 @@ export default function PlayButton(props: Props) {
         ...style,
       }}
       className={clssArr.join(" ")}
+      {...rest}
     >
-      {paused ? (
+      {!playing ? (
         <FaPlay size={iconSize} style={{ marginLeft: 4 }} />
       ) : (
         <FaPause size={iconSize} />

@@ -36,12 +36,16 @@ export default function ArtistPanel() {
   }
 
   const { name, images, followers } = response.data;
-  const cover = getImageURL(images);
+
+  const cover = getImageURL(images, 0, location.origin + "/noavatar.png");
 
   return (
-    <div className="content-wrapper scroller" style={{
+    <div
+      className="content-wrapper scroller"
+      style={{
         backgroundImage: `url('${cover}')`,
-    }}>
+      }}
+    >
       <div className="gradient-wrapper">
         <div className="m-header tactr">
           <div style={{ fontWeight: "bold" }}>Artist</div>
@@ -74,7 +78,7 @@ export default function ArtistPanel() {
           style={{ padding: "32px 16px" }}
         >
           <More />
-          <PlayButton paused />
+          <PlayButton />
           <Like />
         </div>
 

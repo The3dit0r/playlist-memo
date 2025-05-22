@@ -77,7 +77,11 @@ function ContextMenu({ reff }: { reff: any }) {
   return (
     <div
       className="context-menu"
-      style={{ ...position, display: active ? "" : "none" }}
+      style={{
+        ...position,
+        opacity: active ? 1 : 0,
+        pointerEvents: active ? "unset" : "none",
+      }}
       onMouseDown={cancel}
       tabIndex={0}
       onScroll={cancel}

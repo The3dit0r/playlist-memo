@@ -1,3 +1,5 @@
+import { Playable } from "@context/QueueContext";
+
 export function parseParameter(paramStr: string) {
   const paramArr = paramStr.split("&");
   const obj: Record<string, string> = {};
@@ -19,9 +21,13 @@ export function parseParameter(paramStr: string) {
   return obj;
 }
 
-export function getImageURL(images: { url: string }[], index = 0) {
+export function getImageURL(
+  images: { url: string }[],
+  index = 0,
+  placeholder = ""
+) {
   const target = images[Math.max(0, Math.min(index, images.length - 1))];
-  return target?.url;
+  return target?.url || placeholder;
 }
 
 export function capitalize(chars: string) {
@@ -41,4 +47,42 @@ export function durationFormat(d: number, min = ":", sec = "") {
   const sDisplay = s < 10 ? "0" + s : s;
 
   return mDisplay + " " + min + " " + sDisplay + " " + sec;
+}
+
+type BareAlbum = {
+  id: string;
+  name: string;
+  images: { url: string }[];
+  album_type: string;
+};
+
+export function convertTrackToPlayable(
+  items: (SpotifyApi.TrackObjectSimplified | SpotifyApi.TrackObjectFull)[],
+  album?: BareAlbum
+): Playable[] {
+  return items.map((item) => {
+    let al = album;
+
+    if ("album" in item) {
+      al = item.album;
+    }
+
+    if (!al) {
+      throw new Error("A playable must have an album property");
+    }
+
+    return {
+      name: item.name,
+      id: item.id,
+      images: al.images,
+      artists: item.artists,
+      album: {
+        type: "album",
+        name: al.name,
+        id: al.id,
+        album_type: al.album_type,
+      },
+      duration_ms: item.duration_ms,
+    };
+  });
 }

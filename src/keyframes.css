@@ -10,3 +10,21 @@
     opacity: 1;
   }
 }
+
+.fly-in {
+  --offset-x: 0px;
+  --offset-y: 40px;
+  animation: key-fly-in 0.4s linear 0s 1 normal forwards;
+}
+
+@keyframes key-fly-in {
+  0% {
+    transform: translate(var(--offset-x), var(--offset-y));
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0px, 0px);
+
+    opacity: 1;
+  }
+}

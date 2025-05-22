@@ -24,7 +24,7 @@ export function TextInput(props: TextProps) {
   }
 
   return (
-    <div className="text-input" style={style}>
+    <div className={clssArr.join(" ")} style={style}>
       <div className="icon flex aictr">{icon}</div>
       <input
         {...rest}

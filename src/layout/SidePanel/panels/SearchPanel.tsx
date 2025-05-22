@@ -13,6 +13,7 @@ import { CTable } from "@components/CTable";
 
 import { SpotifyAPI } from "@utils/request";
 import { wait } from "@utils/internal";
+import { TextInput } from "@components/input";
 
 function RLoadingPanel() {
   return (
@@ -112,15 +113,11 @@ export default function SearchPanel() {
       className="content-wrapper scroller"
       style={{ padding: 8, overflowY: "scroll" }}
     >
-      <div className="search-bar flex aictr">
-        <Search className="icon" />
-        <input
-          placeholder="What are you searching for?"
-          onInput={handleInput}
-          onChange={handleInput}
-        />
-        <Close className="icon clickable" />
-      </div>
+      <TextInput
+        state={[input, setInput]}
+        className="search-bar"
+        placeholder="Search for tracks, albums, artists, ..."
+      />
 
       {ResultsDisplay}
     </div>
@@ -148,7 +145,7 @@ function ResultsPanel({ results }: { results: ResType }) {
   function Button(p: { n: string; i: number }) {
     return (
       <MButton
-        style={{ padding: "6px 16px", flex: 1 }}
+        style={{ padding: "6px 16px", flex: 1, borderRadius: 8 }}
         onClick={async () => {
           setCurPanel(-1);
           await wait(10);

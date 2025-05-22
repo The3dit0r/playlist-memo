@@ -253,7 +253,7 @@ export function CTable<T>(props: TProps<T>) {
 type RProps = { index: number } & DivProps;
 
 export function CRow(props: RProps) {
-  const { className, index, onClick, ...divProps } = props;
+  const { className, index, onClick,  ...divProps } = props;
 
   const table = useTable();
 

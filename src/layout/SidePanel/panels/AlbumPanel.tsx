@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { AddToPlaylist } from "@icons/AddToPlaylist";
@@ -15,15 +15,52 @@ import { TextInput } from "@components/input";
 import { CTable } from "@components/CTable";
 
 import { useAlbum, useAlbumTracks } from "@hooks/external/album";
-import { useTheme } from "@hooks/internal";
+import { useQueue, useTheme } from "@hooks/internal";
 
-import { capitalize, durationFormat, getImageURL } from "@utils/parser";
+import {
+  capitalize,
+  convertTrackToPlayable,
+  durationFormat,
+  getImageURL,
+} from "@utils/parser";
+
+type Data = {
+  album: ReturnType<typeof useAlbum>;
+  tracks: ReturnType<typeof useAlbumTracks>;
+};
+
+const DataContext = createContext<Data | null>(null);
 
 export default function AlbumPanel() {
-  const theme = useTheme();
-
   const { id = "" } = useParams();
-  const { status, response } = useAlbum(id);
+  const album = useAlbum(id);
+  const tracks = useAlbumTracks(id);
+
+  return (
+    <DataContext.Provider value={{ tracks, album }}>
+      <div
+        className="content-wrapper scroller"
+        style={{
+          // backgroundImage: `url('${cover}')`,
+          backgroundSize: "contain",
+        }}
+      >
+        <div className="gradient-wrapper">
+          <InfoPanel />
+          <TopTracksTable />
+        </div>
+      </div>
+    </DataContext.Provider>
+  );
+}
+
+function InfoPanel() {
+  const theme = useTheme();
+  const data = useContext(DataContext);
+
+  if (!data) return <></>;
+
+  const { response, status } = data.album;
 
   if (status === "pending" || status === "standby") {
     return <LoadingPanel />;
@@ -37,64 +74,48 @@ export default function AlbumPanel() {
   const cover = getImageURL(images);
 
   return (
-    <div
-      className="content-wrapper scroller"
-      style={{
-        backgroundImage: `url('${cover}')`,
-        backgroundSize: "contain",
-      }}
-    >
-      <div className="gradient-wrapper">
-        <div className="m-header tactr">
-          <div style={{ fontWeight: "bold" }}>{capitalize(album_type)}</div>
-        </div>
-
-        <div style={{ padding: "16px 0" }}>
-          <div
-            className="cover full-bdrd"
-            style={{
-              backgroundImage: `url('${cover}')`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-
-              width: Math.min(266, theme.sbWidth - 60),
-              margin: "auto",
-              aspectRatio: 1,
-            }}
-          ></div>
-        </div>
-
-        <div className="metadata tactr">
-          <div className="title" style={{ margin: "0.5em" }}>
-            {name}
-          </div>
-          <ItemLinkList items={artists} />
-        </div>
-
-        <div
-          className="flex jcctr aictr g-half clickables"
-          style={{ padding: "32px 16px" }}
-        >
-          <More />
-          <Like />
-          <PlayButton />
-          <AddToQueue />
-          <AddToPlaylist />
-        </div>
-
-        <TopTracksTable />
+    <>
+      <div className="m-header tactr">
+        <div style={{ fontWeight: "bold" }}>{capitalize(album_type)}</div>
       </div>
-    </div>
+
+      <div style={{ padding: "16px 0" }}>
+        <div
+          className="cover full-bdrd"
+          style={{
+            backgroundImage: `url('${cover}')`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+
+            width: Math.min(266, theme.sbWidth - 60),
+            margin: "auto",
+            aspectRatio: 1,
+          }}
+        ></div>
+      </div>
+
+      <div className="metadata tactr">
+        <div className="title" style={{ margin: "0.5em" }}>
+          {name}
+        </div>
+        <ItemLinkList items={artists} />
+      </div>
+    </>
   );
 }
 
 function TopTracksTable() {
+  const ROW_HEIGHT = 65;
+
   const navigate = useNavigate();
+  const data = useContext(DataContext);
 
-  const { id = "" } = useParams();
-  const { status, response } = useAlbumTracks(id);
-
+  const queue = useQueue();
   const query = useState("");
+
+  if (!data) return <></>;
+
+  const { response, status } = data.tracks;
 
   if (status === "pending" || status === "standby") {
     return <LoadingAnimation />;
@@ -105,7 +126,6 @@ function TopTracksTable() {
   }
 
   const { items } = response.data;
-  const rowHeight = 65;
 
   const renderArr = items.filter((item) => {
     const name = item.name.toLowerCase();
@@ -115,13 +135,36 @@ function TopTracksTable() {
     return name.includes(q) || artists.toLowerCase().includes(q);
   });
 
+  function playItems() {
+    if (data?.album.status !== "resolved") {
+      return;
+    }
+
+    const album = data.album.response.data;
+    const playables = convertTrackToPlayable(items, album);
+
+    queue.playItems(...playables);
+  }
+
   return (
-    <div style={{ padding: 8, minHeight: rowHeight * items.length }}>
+    <div style={{ padding: 8, minHeight: ROW_HEIGHT * items.length }}>
+      <div
+        className="flex jcctr aictr g-half clickables"
+        style={{ padding: "32px 16px" }}
+      >
+        <More />
+        <Like />
+        <PlayButton onClick={playItems} />
+        <AddToQueue />
+        <AddToPlaylist />
+      </div>
+
       <TextInput
         icon={<Search />}
         style={{ marginBottom: 16 }}
         state={query}
         placeholder={`Search in ${items.length} tracks`}
+        className="half-bdrd"
       />
 
       <CTable renderArr={renderArr}>
@@ -133,7 +176,7 @@ function TopTracksTable() {
               onDoubleClick={() => navigate(`/track/${item.id}`)}
               style={{ padding: "0 16px" }}
               others={durationFormat(item.duration_ms, ":")}
-              height={rowHeight}
+              height={ROW_HEIGHT}
             />
           );
         }}

@@ -12,27 +12,43 @@ import { PlaySimple } from "@icons/PlaySimple";
 import { Artist } from "@icons/Artist";
 import { Album } from "@icons/Album";
 
-import PlayButton from "../../components/others/PlayButton";
-import { CTable } from "../../components/CTable";
+import PlayButton from "@components/others/PlayButton";
+import { CTable } from "@components/CTable";
 
-import { useContextMenu } from "@hooks/internal";
+import { useContextMenu, useQueue } from "@hooks/internal";
+import { ItemLink, ItemLinkList } from "@components/others/Link";
+import { capitalize, getImageURL } from "@utils/parser";
 
 export default function MainPlayer() {
   return (
     <div className="main-player">
       <Metadata />
       <Progress />
-      <Queuelist />
+      <QueueList />
     </div>
   );
 }
 
 function Metadata() {
-  let curTitle = "Asymptotic",
-    curSubtitle = "Album",
-    curDesc = "Louie Zong",
-    curCover =
-      "https://i.scdn.co/image/ab67616d00001e0222e1967c131a721421f5d959";
+  const { current } = useQueue();
+
+  let curTitle = <>No track is currently playing</>,
+    curSubtitle = <></>,
+    curDesc = <>You should do something</>,
+    curCover = location.origin + "/nocover.png";
+
+  if (current) {
+    const { album, artists, images } = current;
+
+    curTitle = <ItemLink {...current} type="track" />;
+    curSubtitle = (
+      <>
+        {capitalize(album.album_type)}: <ItemLink {...album} />
+      </>
+    );
+    curDesc = <ItemLinkList items={artists} />;
+    curCover = getImageURL(images);
+  }
 
   return (
     <div className="metadata flex g-half full-bdrd">
@@ -57,13 +73,14 @@ function Metadata() {
   );
 }
 
-function Queuelist() {
+function QueueList() {
+  const queue = useQueue();
   const contextMenu = useContextMenu();
 
   return (
     <div className="queuelist scroller" style={{ padding: 16 }}>
       <CTable
-        renderArr={[1, 2, 3, 4, 5, 6, 7, 8]}
+        renderArr={queue.queue}
         onContextMenu={({ e }) => {
           e.preventDefault();
 
@@ -80,14 +97,22 @@ function Queuelist() {
           );
         }}
       >
-        {(_, index) => (
-          <div className="flex aictr" style={{ height: 60 }}>
+        {(item, index) => (
+          <div
+            className="flex aictr fly-in"
+            style={{
+              height: 60,
+              animationDuration: 0.1 + Math.min(1, index * 0.075) + "s",
+            }}
+          >
             <div style={{ width: 60, textAlign: "center" }}>{index + 1}</div>
             <div className="flex-1">
-              <div style={{ fontWeight: "bold" }}>Queue Song Title</div>
-              <div>Song Artist 1, Song Artist 2</div>
+              <ItemLink {...item} type="track" className="bold" />
+              <ItemLinkList items={item.artists} />
             </div>
-            <div style={{ width: "35%" }}>Song's Album</div>
+            <div style={{ width: "35%" }}>
+              <ItemLink {...item.album} type="album" />
+            </div>
             <div>03:24</div>
             <div style={{ width: 60 }}></div>
           </div>
@@ -98,6 +123,10 @@ function Queuelist() {
 }
 
 function Progress() {
+  const { current } = useQueue();
+
+  if (!current) return <></>;
+
   return (
     <div className="progress">
       <div className="stamp flex spbtw">
